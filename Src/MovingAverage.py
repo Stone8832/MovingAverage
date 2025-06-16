@@ -1,10 +1,12 @@
 import yfinance as yf
 import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
 
 #import spy data; data holds date, close, high, low, open, and volume. Date is datetime
 spy = yf.download("SPY", start = "2020-06-15", auto_adjust= True)
 
-#set variables and close price dataframe
+#set variables for what we want to define as short and long moving average periods
 short = 10
 long = 50
 
@@ -13,17 +15,27 @@ spy['ma_short'] = spy['Close'].rolling(short).sum().div(short)
 spy['ma_long'] = spy['Close'].rolling(long).sum().div(long)
 spy = spy.dropna()
 
-
 #Create the trading single, if short > long signal = 1(in the market) otherwise signal = 0
 spy['Signal'] = (spy['ma_short'] > spy['ma_long']).astype(int)
 spy['Signal'] = spy['Signal'].shift(1)
-spy.at['2020-08-24', 'Signal'] = 0
-print(spy.head())
-#Note for later, code above adds a Signal column to spy and outputs one if yesterday was short> long and 0 if false
+spy['Signal'] = spy['Signal'].fillna(0)
 
-#Caluculate returns and equity curvs
 #Calculate daily spy returns
+spy['Spy Daily Pct'] = spy['Close'].pct_change()
+spy['Spy Daily Pct'] = spy['Spy Daily Pct'].fillna(0)
 
+#Trading strategy returns
+spy['Daily Strategy Returns Pct'] = spy['Signal'] * spy['Spy Daily Pct']
+spy['Strategy EQ Return'] = (1 + spy['Daily Strategy Returns Pct']).cumprod()
+
+#buy and hold returns
+spy['Hold EQ Return'] = (1 + spy['Spy Daily Pct']).cumprod()
+
+#Plot
+spy[['Close', 'ma_short', 'ma_long']].plot(title = 'SPY Price Chart and Moving Averages')
+spy[['Hold EQ Return', 'Strategy EQ Return']].plot(title = 'SPY Trading Strategy Equity Comparison');plt.show()
+
+#Notes: Need to make graphs prettier and define financial metrics and possibly test multiple rolling windows
 
 
 
