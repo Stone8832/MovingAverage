@@ -21,15 +21,13 @@ spy['Signal'] = spy['Signal'].shift(1)
 spy['Signal'] = spy['Signal'].fillna(0)
 
 #Calculate daily spy returns
-spy['Spy Daily Pct'] = spy['Close'].pct_change()
+spy['Spy Daily Pct'] = spy['Close'].pct_change() #new column
 spy['Spy Daily Pct'] = spy['Spy Daily Pct'].fillna(0)
+spy['Hold EQ Return'] = (1 + spy['Spy Daily Pct']).cumprod() #buy and hold eq returns
 
 #Trading strategy returns
-spy['Daily Strategy Returns Pct'] = spy['Signal'] * spy['Spy Daily Pct']
-spy['Strategy EQ Return'] = (1 + spy['Daily Strategy Returns Pct']).cumprod()
-
-#buy and hold returns
-spy['Hold EQ Return'] = (1 + spy['Spy Daily Pct']).cumprod()
+spy['Strategy Daily Pct'] = spy['Signal'] * spy['Spy Daily Pct'] #new column, only applies spy daily pct change if position is true
+spy['Strategy EQ Return'] = (1 + spy['Strategy Daily Pct']).cumprod()
 
 #Plot SPY and moving averages
 spy[['Close', 'ma_short', 'ma_long']].plot(title = 'SPY Price Chart and Moving Averages')
@@ -42,9 +40,6 @@ plt.xlabel('Date')
 plt.ylabel('Equity')
 
 #plt.show() uncomment this to bring graphs back
-
-
-#Notes: Need to make graphs prettier and define financial metrics and possibly test multiple rolling windows
 
 #Calculate CAGR: Compound annual growth rate, provides smooth year-over-year growth return
 def calc_cagr(equity):
@@ -68,8 +63,6 @@ def calc_drawdown(equity):
     drawdown = (equity - peak) / peak
     return drawdown.min()
 
-
-
 #Compute metrics for buy and hold
 hold_cagr = calc_cagr(spy['Hold EQ Return'])
 hold_av = calc_av(spy['Spy Daily Pct'])
@@ -78,7 +71,7 @@ hold_drawdown = calc_drawdown(spy['Hold EQ Return'])
 
 #Compute metrics for trading strategy
 str_cagr = calc_cagr(spy['Strategy EQ Return'])
-str_av = calc_av(spy['Daily Strategy Returns Pct'])
+str_av = calc_av(spy['Strategy Daily Pct'])
 str_sharpe = calc_sharpe(str_cagr, str_av)
 str_drawdown = calc_drawdown(spy['Strategy EQ Return'])
 
