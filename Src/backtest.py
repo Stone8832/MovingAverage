@@ -1,15 +1,19 @@
+#Methods to run the moving average backtest and buy and hold equity and returns
 
-#runs the backtest based on moving average strategy and buy and hold and saves the results to the dataframe
-
-def compute_moving_averages(spy, short, long):
-    spy['ma_short'] = spy['Close'].rolling(short).sum().div(short)
-    spy['ma_long'] = spy['Close'].rolling(long).sum().div(long)
+#Computes the moving averages: Must input a dataframe with close price and window lengths
+def compute_moving_averages(spy, short_len, long_len):
+    spy['ma_short'] = spy['Close'].rolling(short_len).sum().div(short_len)
+    spy['ma_long'] = spy['Close'].rolling(long_len).sum().div(long_len)
     spy = spy.dropna()
     return spy
+
+#Computes the trading signal: When the strategy says to buy, this method will add a column that tracks position using 0 and 1
 def trading_signal(spy):
     spy['Signal'] = (spy['ma_short'] > spy['ma_long']).astype(int)
     spy['Signal'] = spy['Signal'].shift(1).fillna(0)
     return spy
+
+#Computes the returns for buy and hold and strategy, must run the previous two methods before hand
 def compute_returns(spy):
     spy['Spy Daily Pct'] = spy['Close'].pct_change().fillna(0)  # new column
     spy['Hold EQ Return'] = (1 + spy['Spy Daily Pct']).cumprod()  # buy and hold eq returns

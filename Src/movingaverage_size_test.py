@@ -1,4 +1,3 @@
-#This script is to test different moving average window sizes to determine which returns the best sharpe ratio out of different window size combos
 import yfinance as yf
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -7,6 +6,7 @@ import numpy as np
 from metrics import calc_av, calc_cagr, calc_sharpe
 from backtest import compute_moving_averages, trading_signal, compute_returns
 from data_loader import load_spy
+#This script is to test different moving average window sizes to determine which returns the best sharpe ratio out of different window size combos
 
 #Create rolling average ranges
 short = range(5,31,5)
@@ -56,4 +56,4 @@ plt.show()
 #so far how many windows beat the buy and hold strat: 22/62 has a greater sharpe ratio
 print(len(result_df['sharpe'].loc[result_df['sharpe'] > 0.781]))
 
-#note: short = 5, long = 20 was the winning rationwith a sharpe of 1.165
+#note: short = 5, long = 20 was the winning ratio with a sharpe of 1.165

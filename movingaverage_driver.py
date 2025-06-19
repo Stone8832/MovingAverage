@@ -7,11 +7,12 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
 
+#This script is the file driver which will run the original moving average backtest but does so using the created methods.
 #load data
 spy = load_spy()
 
 #backtest steps
-spy = compute_moving_averages(spy, short = 10, long =50)
+spy = compute_moving_averages(spy, 10, 50)
 spy = trading_signal(spy)
 spy = compute_returns(spy)
 

@@ -2,6 +2,7 @@ import yfinance as yf
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
+#The first original backtest file. Save this for reference or for a quick showcase example of the project. Can be used as a demo of the project as a whole as well.
 
 #import spy data; data holds date, close, high, low, open, and volume. Date is datetime
 spy = yf.download("SPY", start = "2020-06-15", auto_adjust= True)
@@ -39,7 +40,7 @@ spy[['Hold EQ Return', 'Strategy EQ Return']].plot(title = 'SPY Trading Strategy
 plt.xlabel('Date')
 plt.ylabel('Equity')
 
-plt.show();
+plt.show()
 
 #Calculate CAGR: Compound annual growth rate, provides smooth year-over-year growth return
 def calc_cagr(equity):
@@ -53,7 +54,7 @@ def calc_av(returns):
     daily_variance = returns.std()
     return daily_variance * np.sqrt(252)
 
-#Calculate Sharpe Ratio: Return per unit of risk "How much extra return did I get for each percent of volatility I endured". Note, we assume zero risk free rate
+#Calculate Sharpe Ratio: Return per unit of risk "How much extra return did I get for each percent of volatility I endured". Note, we assume zero risk-free rate
 def calc_sharpe(cagr, vol):
     return cagr / vol if vol != 0 else np.nan
 

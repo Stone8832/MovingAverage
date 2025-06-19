@@ -7,7 +7,7 @@ from metrics import calc_av, calc_cagr, calc_sharpe
 from backtest import compute_moving_averages, trading_signal, compute_returns
 from data_loader import load_spy
 
-#create a class function to test different moving average sizes
+#A method to test different moving average sizes: when called it loads spy data and calculates sharpe ratios of each rolling window pair. Must provide window sizes. Will output a dictionary file
 def moving_average_size(short, long):
     result = []
 
@@ -28,15 +28,14 @@ def moving_average_size(short, long):
             df = trading_signal(df)
             df = compute_returns(df)
 
-            # Calcualte sharpe ratio
+            # Calculate sharpe ratio
             str_cagr = calc_cagr(df['Strategy EQ Return'])
             str_av = calc_av(df['Strategy Daily Pct'])
             str_sharpe = calc_sharpe(str_cagr, str_av)
 
             # appends the results into our list, to results are type dictionary
             result.append({'short': s, 'long': l, 'sharpe': str_sharpe})
-
-            return result
+    return result
 
 
 

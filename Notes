@@ -1,0 +1,45 @@
+I started by backtesting a moving average crossover strategy on spy using roughly 5 years of data. I started with window sizes 10 and 50 and compared metrics to a simple buy and hold of spy from the start date.
+
+Here are the results: Metric                 |     Buy-and-hold       |     Trading Strategy
+-----------------------|------------------------|----------------------
+CAGR                  |     13.86%     |    7.66%
+Annualized Volatility |     17.74%       |    11.88%
+Sharpe Ratio          |     0.78   |    0.64
+Maximum Drawdown      |    -24.50% |   -14.94%
+
+I also plotted the moving averages with the spy graph. The EQ comparison was separately plotted as well to visualize the results.
+
+In summary, buy and hold of SPY had a sharpe of 0.78 and the strategy had a sharpe of 0.64, meaning it was not a better investment strategy for the backtested investment and timeframe.
+
+For testing, I will primarily use the sharpe ratio to determine the better investment as it is the ratio of returns to its volatility.
+
+I then, decided to test other combinations of window sizes to compare how different window sizes changes the sharpe ratio.
+
+I initially tested using ranges short = range(5,31,5) and long = range(20, 121, 10).
+
+I used a heatmap to visualize the findings.
+
+The initial results were that 22 window pairs had beat the buy and hold sharpe out of 62 windows in total (36.6%). This told me that some of the moving average crossover strategies did in fact out perform. Surprising.
+
+Whats more surprising, the window sizes short = 5 and long = 20 out performed the other windows by a shocking margin. In fact, it was the only one of 62 to have a sharpe ratio above 1.
+
+That lead me to hypothesize that smaller windows for both short and long likely perform better than longer windows.
+
+I then proceeded to test wider window sizes ranging from short = range(3,31, 3) and long = range(10, 121, 5)
+
+The results for this test were that 73/210 had a greater sharpe than buy and hold; roughly 34.76%. A similar yet expected percentage from the previous test with less window size pairs.
+
+With this larger dataset, we how have 8 pairs with a sharpe ratio greater than 1.
+
+On first inspection of the heatmap, there is a clear performance decline in sharpe once the short window < 9, in fact, not a single pair was above a ratio of 1.
+
+Interestingly, regarding the long window lengths, there is positive performance clusters for long window sizes > 35 and < 95. In between this interval, we have a sharpe decline in performance.
+
+Every sharpe ratio observed to be above 1(8 in total) was in one of the clusters of short window length >= 9 and long window length of >=30 OR  <= 100.
+
+It seems there is clear performance improvement in these areas and more testing will be done.
+
+notes to do for next day: I should start by jotting down each of the window pairs and mark down the exact metrics of each and compare them to the buy and hold, I should also graph some of the moving average pairs and equity curves.
+I should also do more out of sample test and costs test such as testing other date periods and other asset classes.
+
+
