@@ -53,5 +53,7 @@ plt.ylabel('Long window')
 plt.title('MA window Sharpe Ratio heat-map')
 plt.show()
 
-#so far how many windows beat the buy and hold strat: 14/50 has a greater sharpe ratio
+#so far how many windows beat the buy and hold strat: 22/62 has a greater sharpe ratio
 print(len(result_df['sharpe'].loc[result_df['sharpe'] > 0.781]))
+
+#note: short = 5, long = 20 was the winning rationwith a sharpe of 1.165

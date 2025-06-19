@@ -39,7 +39,7 @@ spy[['Hold EQ Return', 'Strategy EQ Return']].plot(title = 'SPY Trading Strategy
 plt.xlabel('Date')
 plt.ylabel('Equity')
 
-#plt.show() uncomment this to bring graphs back
+plt.show();
 
 #Calculate CAGR: Compound annual growth rate, provides smooth year-over-year growth return
 def calc_cagr(equity):
