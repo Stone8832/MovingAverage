@@ -13,10 +13,22 @@ def trading_signal(spy):
     spy['Signal'] = spy['Signal'].shift(1).fillna(0)
     return spy
 
-#Computes the returns for buy and hold and strategy, must run the previous two methods before hand
+#Computes the returns for buy and hold and strategy, must run the previous two methods beforehand
 def compute_returns(spy):
     spy['Spy Daily Pct'] = spy['Close'].pct_change().fillna(0)  # new column
     spy['Hold EQ Return'] = (1 + spy['Spy Daily Pct']).cumprod()  # buy and hold eq returns
+    spy['Strategy Daily Pct'] = spy['Signal'] * spy['Spy Daily Pct']  # new column, only applies spy daily pct change if position is true
+    spy['Strategy EQ Return'] = (1 + spy['Strategy Daily Pct']).cumprod()
+    return spy
+
+#Computes spy buy and hold returns only rather than both
+def compute_bh_returns(spy):
+    spy['Spy Daily Pct'] = spy['Close'].pct_change().fillna(0)  # new column
+    spy['Hold EQ Return'] = (1 + spy['Spy Daily Pct']).cumprod()  # buy and hold eq returns
+    return spy
+
+#Computes strategy returns only rather than both
+def compute_str_returns(spy):
     spy['Strategy Daily Pct'] = spy['Signal'] * spy['Spy Daily Pct']  # new column, only applies spy daily pct change if position is true
     spy['Strategy EQ Return'] = (1 + spy['Strategy Daily Pct']).cumprod()
     return spy

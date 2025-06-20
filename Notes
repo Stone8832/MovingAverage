@@ -42,4 +42,13 @@ It seems there is clear performance improvement in these areas and more testing 
 notes to do for next day: I should start by jotting down each of the window pairs and mark down the exact metrics of each and compare them to the buy and hold, I should also graph some of the moving average pairs and equity curves.
 I should also do more out of sample test and costs test such as testing other date periods and other asset classes.
 
-
+Here are the 8 pairs with a sharpe ratio above one with their metrics:
+ short  long    sharpe      cagr        av  drawdown
+2       3    20  1.000541  0.109940  0.109880 -0.177855
+18      3   100  1.069835  0.123810  0.115728 -0.171195
+19      3   105  1.029992  0.119023  0.115557 -0.185282
+24      6    15  1.188505  0.127134  0.106970 -0.139467
+25      6    20  1.064253  0.123018  0.115591 -0.181151
+46      9    10  1.170497  0.130417  0.111420 -0.121421
+64      9   100  1.040123  0.120723  0.116066 -0.207717
+66      9   110  1.002370  0.115501  0.115228 -0.189966

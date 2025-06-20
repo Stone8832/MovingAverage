@@ -1,0 +1,8 @@
+Metric                 |     Buy-and-hold       |     Trading Strategy
+-----------------------|------------------------|----------------------
+CAGR                  |     13.86%     |    7.66%
+Annualized Volatility |     17.74%       |    11.88%
+Sharpe Ratio          |     0.78   |    0.64
+Maximum Drawdown      |    -24.50% |   -14.94%
+
+Buy-and-hold edges out the trading strategy on risk-adjusted returns based on the Sharpe ratio.
