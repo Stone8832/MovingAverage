@@ -2,7 +2,7 @@ import yfinance as yf
 import pandas as pd
 import matplotlib.pyplot as plt
 import numpy as np
-from plot import plot_sharpe_heatmap, plot_equity, plot_moving_averages
+from plot import plot_sharpe_heatmap, plot_equity, plot_moving_averages, plot_equity_only
 from movingaverage_size_test_method import moving_average_size
 from metrics import calc_av, calc_cagr, calc_sharpe, calc_drawdown
 from data_loader import load_spy
@@ -54,6 +54,26 @@ best_pairs_metrics['cagr'] = cagr
 best_pairs_metrics['av'] = av
 best_pairs_metrics['drawdown'] = drawdown
 
-print(best_pairs_metrics)
+#Picks the best three based on sharpe ratio
+sorted_pairs_metrics = best_pairs_metrics.sort_values(by ='sharpe', ascending= False)
+best_three_pairs = sorted_pairs_metrics.iloc[0:3, :]
+
+#Get the best pairs df into a dictinary
+best_three_tuples = list(zip(best_three_pairs['short'], best_three_pairs['long']))
+
+best_three_df ={}
+for key, df in pair_df.items():
+    if key in best_three_tuples:
+        best_three_df[key] = df
+
+#Plot top 3 eq curves with the buy and hold eq
+for df in best_three_df.values():
+    df['Strategy EQ Return'].plot(title='SPY Trading Strategy Equity', alpha = 0.4)
+    plt.xlabel('Date')
+    plt.ylabel('Equity')
+spy['Hold EQ Return'].plot()
+plt.show()
+
+
 
 

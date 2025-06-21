@@ -24,3 +24,9 @@ def plot_sharpe_heatmap(sharpe_df):
     plt.xlabel("Short Window")
     plt.ylabel("Long Window")
     plt.title("Smaller Window Sharpe Ratio Test")
+
+#Method to plot the strategy EQ only
+def plot_equity_only(spy):
+    spy['Strategy EQ Return'].plot(title='SPY Trading Strategy Equity')
+    plt.xlabel('Date')
+    plt.ylabel('Equity')

@@ -52,3 +52,11 @@ Here are the 8 pairs with a sharpe ratio above one with their metrics:
 46      9    10  1.170497  0.130417  0.111420 -0.121421
 64      9   100  1.040123  0.120723  0.116066 -0.207717
 66      9   110  1.002370  0.115501  0.115228 -0.189966
+
+
+I just plotted the top 3 winners compared to buy and hold, need to figure out why they were under buy and hold if they had a higher sharpe
+I think its because spy cagr is 0.1577903394855773  and av = 0.17631427632364094
+compared to the highest of the top 8 being cagr = 1.129 and its av is 0.1111
+So its because they were less volaiity
+
+

@@ -29,7 +29,7 @@ str_sharpe = calc_sharpe(str_cagr, str_av)
 str_drawdown = calc_drawdown(spy['Strategy EQ Return'])
 
 #Plot Graphs
-#plot_moving_averages(spy); plot_equity(spy); plt.show()
+plot_moving_averages(spy); plot_equity(spy); plt.show()
 
 #Print and compare the financial metrics
 print("Metric                 |     Buy-and-hold       |     Trading Strategy ")
