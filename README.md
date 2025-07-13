@@ -1,4 +1,4 @@
-# Moving-Average Crossover Study (SPY 2020-06-15 → present)
+# Moving-Average Crossover Study (SPY 2020-06-15 → 2025-07-11)
 
 > Evaluate a two-moving-average crossover trading strategy on SPY, sweep window pairs,  
 > and identify the zone with the best risk-adjusted return compared to a simple buy-and-hold strategy.
